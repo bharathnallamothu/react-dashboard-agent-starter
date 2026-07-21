@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Quality React UI"
+  short_description: "Apply accessible React UI quality checks"
+  default_prompt: "Use $build-quality-react-ui to build or review this React interface against the repository UI quality standards."
