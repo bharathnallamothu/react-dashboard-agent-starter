@@ -1,0 +1,29 @@
+name: Normalize published starter
+
+on:
+  push:
+    paths:
+      - '.github/workflows/normalize.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Normalize and publish
+        shell: bash
+        run: |
+          git config core.autocrlf input
+          git add --renormalize .
+          rm -f .github/workflows/normalize.yml
+          rmdir --ignore-fail-on-non-empty .github/workflows .github
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Normalize published starter files"
+          git push origin HEAD:main
